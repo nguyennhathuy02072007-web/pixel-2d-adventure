@@ -63,11 +63,11 @@ public class InputHandler implements KeyListener{
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState; // Bắt đầu chơi
-            // gp.playMusic(0); // Có thể bật nhạc tại đây
+                    gp.gameState = gp.playState; //Start game
+            // gp.playMusic(0); 
                 }
                 if (gp.ui.commandNum == 1) {
-                    System.exit(0); // Thoát game
+                    System.exit(0); // Out game
                 }
             }
         }
@@ -83,7 +83,7 @@ public class InputHandler implements KeyListener{
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState; // Quay lại chơi tiếp
+                    gp.gameState = gp.playState; // play again
                 }
                 if (gp.ui.commandNum == 1) {
                     gp.stopMusic();
@@ -93,28 +93,25 @@ public class InputHandler implements KeyListener{
             }
         }
 
-            // Người chơi chỉ có thể bấm ENTER để xác nhận thoát
-            // Đổi toàn bộ chữ Slate thành State
+
         if (gp.gameState == gp.gameOverState) {
             
-            // Người chơi chỉ có thể bấm ENTER để xác nhận thoát
             if (code == KeyEvent.VK_ENTER) {
                 
-                gp.stopMusic();             // Dừng nhạc nền hiện tại
+                gp.stopMusic();             // stop current music
                 
-                // GỌI HÀM RESET GAME (Nếu bạn đã có hàm đặt lại vị trí quái và hồi máu)
                 gp.resetGame(); 
                 
-                gp.gameState = gp.titleState; // Đưa người chơi về thẳng Menu chính
-                gp.playMusic(0);            // Bật lại nhạc nền của Menu chính
+                gp.gameState = gp.titleState; // return menu
+                gp.playMusic(0);            // play music at menu
             } 
         }
         else if (gp.gameState == gp.winState) {
             if (code == KeyEvent.VK_ENTER) {
                 gp.stopMusic(); 
-                gp.resetGame();               // Hồi máu, reset vị trí player
-                gp.gameState = gp.titleState; // Đưa về Menu chính
-                gp.playMusic(0);              // Bật lại nhạc nền Menu
+                gp.resetGame();               // heal, reset player location
+                gp.gameState = gp.titleState; // return menu
+                gp.playMusic(0);              // play music at menu
             }
         }
     }

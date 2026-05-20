@@ -20,10 +20,10 @@ public class CollisionChecker {
     public void checkTile(Entity entity) {
 
         int leftWorldX = entity.getWorldX() + entity.getSolidAreaDefaultX();
-        int rightWorldX = entity.getWorldX() + entity.getSolidAreaDefaultX() + entity.getSolidArea().width;
+        int rightWorldX = leftWorldX + entity.getSolidArea().width;
     
         int topWorldY = entity.getWorldY() + entity.getSolidAreaDefaultY();
-        int bottomWorldY = entity.getWorldY() + entity.getSolidAreaDefaultY() + entity.getSolidArea().height;
+        int bottomWorldY = topWorldY + entity.getSolidArea().height;
             
         int leftCol = leftWorldX / gp.tileSize;
         int rightCol = rightWorldX / gp.tileSize;
@@ -155,6 +155,7 @@ public class CollisionChecker {
 
         return index;
     }
+    
     public boolean checkPlayer(Entity entity) {
 
         boolean contactPlayer = false;
