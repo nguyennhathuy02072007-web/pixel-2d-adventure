@@ -1,12 +1,13 @@
 package input;
 
+
+//IMPORT
 import java.awt.event.KeyListener;
-
 import main.GamePanel;
-
 import java.awt.event.KeyEvent;
 
 
+//ATTRIBUTES AND CONSTRUCTOR
 public class InputHandler implements KeyListener{
 
     public boolean upPressed, downPressed, leftPressed, rightPressed; 
@@ -16,6 +17,8 @@ public class InputHandler implements KeyListener{
         this.gp = gp;
     }
 
+
+    //METHODS
     @Override
     public void keyTyped(KeyEvent e) {        
     }

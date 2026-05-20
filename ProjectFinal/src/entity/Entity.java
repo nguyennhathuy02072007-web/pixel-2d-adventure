@@ -1,10 +1,14 @@
 package entity;
 
+
+//IMPORT
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import main.GamePanel;
 import java.awt.Rectangle;
 
+
+//ATTRIBUTE AND CONSTRUCTOR
 public class Entity {
     
     protected GamePanel gp;
@@ -34,6 +38,8 @@ public class Entity {
         this.direction = direction; 
     }
 
+
+    //GETTER AND SETTER
     public int getWorldX() {
         return worldX;
     }
@@ -82,6 +88,8 @@ public class Entity {
         return solidAreaDefaultY;
     }
 
+
+    //METHODS
     public boolean isCollision() {
         return collision;
     }

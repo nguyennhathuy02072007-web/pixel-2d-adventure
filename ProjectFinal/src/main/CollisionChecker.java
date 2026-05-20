@@ -1,7 +1,11 @@
 package main;
  
+
+//IMPORT
 import entity.Entity;
  
+
+//ATTRIBUTES AND CONSTRUCTOR
 public class CollisionChecker {
 
     private final GamePanel gp;
@@ -11,6 +15,8 @@ public class CollisionChecker {
         this.gp = gp;
     }
 
+
+    //METHODS
     public void checkTile(Entity entity) {
 
         int leftWorldX = entity.getWorldX() + entity.getSolidAreaDefaultX();

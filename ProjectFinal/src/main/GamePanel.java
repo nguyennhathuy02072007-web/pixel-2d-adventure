@@ -61,10 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     // TILE MANAGER
     public tile.TileManager tileM = new tile.TileManager(this);
 
-    // GET PLAYER
-    public Player getPlayer() {
-        return player;
-    }
+
 
 
     // GAME STATE
@@ -139,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable {
           int col = (int)(Math.random() * maxWorldCol);
         int row = (int)(Math.random() * maxWorldRow);
         
-// CHECK TILE KHÔNG COLLISION
+// CHECK TILE
 if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
 
     int x = col * tileSize;
@@ -151,7 +148,7 @@ if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
     int distanceX = Math.abs(x - player.getWorldX());
     int distanceY = Math.abs(y - player.getWorldY());
 
-    // KHÔNG SPAWN GẦN PLAYER
+    //NOT SPAWN NEAR PLAYER
     if(distanceX > safeZone || distanceY > safeZone) {
 
         monster[spawned] = new Slime(this, x, y);
@@ -160,6 +157,11 @@ if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
     }
 }
         }
+    }
+
+        // GETTER
+    public Player getPlayer() {
+        return player;
     }
 
     // START GAME THREAD
@@ -185,32 +187,28 @@ if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
             damageCooldown--;
         }
         if (damageCooldown == 0) {
-            // Vòng lặp cập nhật và tính va chạm với tất cả quái vật
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
                     monster[i].update();
 
-                    // Tính khoảng cách giữa player và monster[i]
                     int diffX = Math.abs(player.getWorldX() - monster[i].getWorldX()); 
                     int diffY = Math.abs(player.getWorldY() - monster[i].getWorldY()); 
 
-                    // Nếu va chạm xảy ra VÀ đã hết thời gian bất tử (damageCooldown đã về bằng 0)
                     if (diffX < tileSize - 10 && diffY < tileSize - 10) {
                         
-                        player.life -= 1;     // Giảm 1 máu 
-                        isHurt = true;        // Kích hoạt chớp đỏ màn hình bên UI
-                        hurtCounter = 0;      // Đặt lại bộ đếm chớp đỏ để bắt đầu chu kỳ mới
+                        player.life -= 1;    
+                        isHurt = true;       
+                        hurtCounter = 0;      
                         
-                        playSE(1);            // Phát âm thanh punch.wav (Không gõ chữ i:)
-                        damageCooldown = 60;  // Khóa nhận sát thương trong 60 khung hình tiếp theo (1 giây)
+                        playSE(1);          
+                        damageCooldown = 60;  
 
-                        System.out.println("Quái cắn! Máu còn: " + player.life);
+                        System.out.println("Enemy attack! Current Health: " + player.life);
                         break;
                     }
                 }
             }
         }else {
-            // Nếu đang bất tử (damageCooldown > 0), quái vẫn di chuyển nhưng không thể gây sát thương
             for (int i = 0; i < monster.length; i++) {
                 if (monster[i] != null) {
                     monster[i].update();
@@ -219,27 +217,25 @@ if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
         }
 
             if (player.life <= 0) {
-                    gameState = gameOverState; // Đổi biến gameState (Dùng dấu = chuẩn)
-                    ui.commandNum = 0;         // Đặt lại con trỏ Menu Game Over về dòng đầu tiên
+                    gameState = gameOverState; 
+                    ui.commandNum = 0;        
             }
             int gateTileX = 48; 
             int gateTileY = 48;
 
-            // Tính xem Player hiện tại đang đứng ở ô gạch số mấy
             int playerTileX = player.getWorldX() / tileSize;
             int playerTileY = player.getWorldY() / tileSize;
 
             if (playerTileX == gateTileX && playerTileY == gateTileY) {
                 
-                stopMusic();            // Dừng nhạc nền map chơi
-                playSE(2);           // Phát âm thanh chiến thắng (nếu bạn có file win.wav ở index 2)
+                stopMusic();            
+                playSE(2);           
                 
-                gameState = winState; // Chuyển trạng thái game sang THẮNG!
-                ui.commandNum = 0;    // Đặt lại con trỏ menu trên màn hình Win
+                gameState = winState; 
+                ui.commandNum = 0;    
             }
         
         if(gameState == pauseState){
-            //nothing
         }
         
     }
@@ -311,13 +307,9 @@ if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
         // DRAW PLAYER
         player.draw(g2);
         if (gameState == titleState) {
-            ui.draw(g2); // Vẽ menu chính (chữ Adventure Game, nút chọn...)
+            ui.draw(g2); 
         } else {
-            // Nếu đang trong game thì vẽ Bản đồ, Người chơi, Quái vật trước...
-            // tileM.draw(g2);
-            // player.draw(g2);
-            
-            // Cuối cùng vẽ UI (Thanh máu HUD, Màn hình Pause, Màn hình GameOver)
+
             ui.draw(g2);
         }
         // FPS COUNTER
@@ -344,12 +336,10 @@ if(!tileM.tile[tileM.mapTileNum[col][row]].collision) {
         g2.dispose();
     }
     public void resetGame() {
-        player.life = player.maxLife; // Hồi đầy lại máu cho người chơi
+        player.life = player.maxLife; 
         isHurt = false;
         damageCooldown = 0;
-        // (Thay số 1 bằng số Cột/Hàng ô gạch bạn muốn nhân vật xuất hiện)
 
-        // Đặt lại tọa độ hồi sinh mặc định cho Player tránh bị kẹt ở bầy quái cũ
         player.setWorldX(tileSize * 13);
         player.setWorldY(tileSize * 12);
     }

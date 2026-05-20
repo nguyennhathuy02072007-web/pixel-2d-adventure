@@ -1,12 +1,14 @@
 package entity;
 
+
+//IMPORT
 import java.awt.Rectangle;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import main.GamePanel;
 
+
+//ATTRIBUTES AND CONSTRUCTOR
 public class Slime extends Enemy {
 
     public Slime(GamePanel gp, int worldX, int worldY) {
@@ -18,6 +20,8 @@ public class Slime extends Enemy {
         solidAreaDefaultY = solidArea.y;
     }
 
+
+    //METHODS
     @Override
     public void loadImage() {
 

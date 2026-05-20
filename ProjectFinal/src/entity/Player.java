@@ -1,15 +1,13 @@
 package entity;
 
+//IMPORT 
 import main.CollisionChecker;
-//import
 import main.GamePanel;
 import input.InputHandler;
-
 import java.awt.Rectangle;
-
 import javax.imageio.ImageIO;
 
-//methods
+//ATTRIBUTES AND CONSTRUCTOR
 public class Player extends Entity {
 
     public final InputHandler inputhandler;
@@ -36,6 +34,8 @@ public class Player extends Entity {
         loadImage();
     }
 
+
+    //METHODS
     public void loadImage() {
 
         try{
